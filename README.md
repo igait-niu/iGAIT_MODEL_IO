@@ -6,7 +6,7 @@ This script provides a command-line interface to run the iGAIT pipeline for **tr
 ### Basic Command Format
 
 ```bash
-python main.py <mode> --model <openpose|mediapipe> --side <SIDE_PATH> [--front <FRONT_PATH>] [--env <DEV|PROD>]
+python main.py <mode> --model <openpose|mediapipe> --side <SIDE_PATH> [--front <FRONT_PATH>] [--env <DEV|PROD>] [--out_dir]
 ```
 
 ## Arguments
@@ -58,7 +58,14 @@ or
 --front /data/openpose-json/Su_229_F_6_0_X_X
 ```
 
-5. Environment (optional)
+5. out_dir
+
+default_result_dir= ROOT_DIR / 'results/ClassPrediction'
+```
+--out_dir Output
+```
+
+6. Environment (optional)
 * Controls runtime behavior:
 
   * `DEV`: saves intermediate files, prints debug logs

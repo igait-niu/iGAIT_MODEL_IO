@@ -4,7 +4,7 @@ from pathlib import Path
 ROOT_DIR = Path(__file__).parent
 import statistics
 
-result_dir=ROOT_DIR/'results/ClassPrediction'
+default_result_dir= ROOT_DIR / 'results/ClassPrediction'
 
 def ensemble(X):
     def get_predictions(model, X):
@@ -21,10 +21,13 @@ def ensemble(X):
     return int(statistics.mode(results)), probabilities
 
 
-def get_ensebmle_prediction(input,subject):
-    os.makedirs(result_dir,exist_ok=True)
+def get_ensebmle_prediction(input_json, subject, output_dir):
+    if output_dir:
+        os.makedirs(output_dir,exist_ok=True)
+    else:
+        os.makedirs(default_result_dir, exist_ok=True)
     try:
-        prediction, probabilities = ensemble(input)
+        prediction, probabilities = ensemble(input_json)
         response = {
             "status": "success",
             "class": prediction,
@@ -39,12 +42,15 @@ def get_ensebmle_prediction(input,subject):
             "error_type": type(e).__name__,
             "error_message": str(e)
         }
-    with open(os.path.join(result_dir,f"{subject}.json"), mode="w") as file:
-        json.dump(response,file,indent=2)
-
+    if output_dir:
+        with open(os.path.join(output_dir, f"{subject}.json"), mode="w") as file:
+            json.dump(response,file,indent=2)
+    else:
+        with open(os.path.join(default_result_dir, f"{subject}.json"), mode="w") as file:
+            json.dump(response,file,indent=2)
     return response
 
-def process_new_data(mode, model, front_file, side_file, env):
+def process_new_data(mode, model, front_file, side_file, env,output_dir):
     file_name=Path(side_file).name
-    response=get_ensebmle_prediction(input=side_file,subject=file_name)
+    response=get_ensebmle_prediction(input_json=side_file, subject=file_name, output_dir=output_dir)
     print(response)

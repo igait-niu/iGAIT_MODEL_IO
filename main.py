@@ -11,6 +11,8 @@ def parse_args():
     parser.add_argument("--model", choices=["openpose", "mediapipe"], required=True, help="Pose estimation model")
     parser.add_argument("--front",type=str, help="Front-view JSON file path")
     parser.add_argument("--side", type=str, required=True, help="Side-view JSON file path")
+    parser.add_argument("--out_dir",type=str,
+                        help="Output directory to store results. Default Dir is results/Classprediction/")
     parser.add_argument("--env", choices=["DEV", "PROD"], default=None)
     args = parser.parse_args()
     print(f"args:{args}")
@@ -22,7 +24,7 @@ def main():
     args = parse_args()
     print("Running in mode:",args.env)
     process_new_data(mode=args.mode, model=args.model, front_file=args.front, side_file=args.side,
-                     env=args.env)
+                     env=args.env,output_dir=args.out_dir)
     # ensure_requirements(req_file="requirements.txt")
 
 
