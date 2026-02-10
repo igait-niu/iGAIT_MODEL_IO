@@ -1,0 +1,12 @@
+{
+  "status": "success",
+  "class": 1,
+  "probabilities": [
+    0.23621521890163422,
+    0.48942333459854126,
+    0.638190746307373,
+    0.30489876866340637,
+    0.3444334864616394
+  ],
+  "message": "Ensemble completed successfully"
+}
