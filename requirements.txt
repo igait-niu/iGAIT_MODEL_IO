@@ -1,0 +1,2 @@
+# iGAIT Stage 6 - Prediction
+# Add ML dependencies here as needed (e.g. tensorflow, keras, numpy, etc.)
